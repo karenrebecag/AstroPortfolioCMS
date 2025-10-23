@@ -71,11 +71,6 @@ export default buildConfig({
 
   // Límites de seguridad
   maxDepth: 5,
-  rateLimit: {
-    window: 15 * 60 * 1000, // 15 minutos
-    max: 100, // máximo 100 peticiones
-    trustProxy: true, // Para Vercel
-  },
 
   // Plugin de almacenamiento
   plugins: [
