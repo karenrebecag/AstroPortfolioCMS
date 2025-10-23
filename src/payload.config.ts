@@ -27,7 +27,6 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '- Portfolio CMS',
-      favicon: '/favicon.ico',
     },
   },
 
