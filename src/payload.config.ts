@@ -8,13 +8,16 @@ import { fileURLToPath } from 'url'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   // URL completa de tu CMS desplegado en Vercel
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  serverURL:
+    process.env.PAYLOAD_PUBLIC_SERVER_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'),
 
   // Secret para encriptación
   secret: process.env.PAYLOAD_SECRET || '',
@@ -48,6 +51,8 @@ export default buildConfig({
     },
     // CRÍTICO: Desactiva auto-push en producción
     push: process.env.NODE_ENV === 'development',
+    // Migraciones para producción
+    prodMigrations: migrations,
   }),
 
   // CORS: Permite peticiones desde tu portfolio
