@@ -185,6 +185,43 @@ export interface Project {
    */
   featured?: boolean | null;
   publishedDate?: string | null;
+  /**
+   * Key metrics and achievements for this project
+   */
+  metrics?:
+    | {
+        label: string;
+        value: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optimize how this project appears in search engines and social media
+   */
+  seo?: {
+    /**
+     * SEO title (50-60 characters recommended)
+     */
+    metaTitle?: string | null;
+    /**
+     * SEO description (150-160 characters recommended)
+     */
+    metaDescription?: string | null;
+    /**
+     * Image for social media sharing (1200x630px recommended)
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * SEO keywords for this project
+     */
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -319,6 +356,27 @@ export interface ProjectsSelect<T extends boolean = true> {
   status?: T;
   featured?: T;
   publishedDate?: T;
+  metrics?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        description?: T;
+        id?: T;
+      };
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        ogImage?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
