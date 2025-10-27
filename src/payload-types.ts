@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    'quick-projects': QuickProject;
+    services: Service;
+    'home-faqs': HomeFaq;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    'quick-projects': QuickProjectsSelect<false> | QuickProjectsSelect<true>;
+    services: ServicesSelect<false> | ServicesSelect<true>;
+    'home-faqs': HomeFaqsSelect<false> | HomeFaqsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -145,49 +151,168 @@ export interface User {
  */
 export interface Project {
   id: number;
+  /**
+   * Main title for the project (used in homepage and case study)
+   */
   title: string;
+  /**
+   * URL-friendly version of title (auto-generated)
+   */
   slug: string;
-  description: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  featuredImage: number | Media;
-  gallery?:
-    | {
-        image?: (number | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  technologies?:
-    | {
-        name: string;
-        icon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  demoUrl?: string | null;
-  githubUrl?: string | null;
   status: 'draft' | 'published' | 'archived';
   /**
    * Show in homepage featured section
    */
   featured?: boolean | null;
-  publishedDate?: string | null;
   /**
-   * Key metrics and achievements for this project
+   * Short description shown in homepage ProjectsIsland
    */
+  briefDescription: string;
+  /**
+   * Main image (shown on hover in homepage + used in Article Section)
+   */
+  mainImage: number | Media;
+  /**
+   * Main category tag (e.g., "Web Development", "UI Design")
+   */
+  mainTag: string;
+  /**
+   * Publication date (auto-set to today)
+   */
+  uploadDate: string;
+  /**
+   * Author profile image
+   */
+  authorImage: number | Media;
+  /**
+   * Post by: Author name
+   */
+  authorName: string;
+  /**
+   * Add multiple content sections with headings and paragraphs
+   */
+  articleSections?:
+    | {
+        heading: string;
+        paragraphs: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  quote: {
+    text: string;
+    author: string;
+  };
+  /**
+   * Add unlimited images for the horizontal scrolling gallery
+   */
+  galleryImages?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  techStack?:
+    | {
+        /**
+         * Technology name (e.g., "React", "TypeScript")
+         */
+        heading: string;
+        /**
+         * Brief description of how this tech was used
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Step numbers (Step 1, Step 2...) are auto-generated
+   */
+  workflowSteps?:
+    | {
+        /**
+         * Step title
+         */
+        title: string;
+        /**
+         * Step description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Maximum 4 achievement accordions
+   */
+  achievements?:
+    | {
+        /**
+         * Achievement title
+         */
+        title: string;
+        /**
+         * Achievement description
+         */
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Final section title
+   */
+  finalTitle: string;
+  /**
+   * Add as many tags as needed (also used in homepage)
+   */
+  finalTags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Add project-specific frequently asked questions
+   */
+  templateFAQs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  seo?: {
+    /**
+     * SEO title (50-60 characters recommended, leave empty to use project title)
+     */
+    metaTitle?: string | null;
+    /**
+     * SEO description (150-160 characters recommended)
+     */
+    metaDescription?: string | null;
+    /**
+     * Open Graph image for social sharing (1200x630px recommended)
+     */
+    ogImage?: (number | null) | Media;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
   metrics?:
     | {
         label: string;
@@ -196,32 +321,6 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Optimize how this project appears in search engines and social media
-   */
-  seo?: {
-    /**
-     * SEO title (50-60 characters recommended)
-     */
-    metaTitle?: string | null;
-    /**
-     * SEO description (150-160 characters recommended)
-     */
-    metaDescription?: string | null;
-    /**
-     * Image for social media sharing (1200x630px recommended)
-     */
-    ogImage?: (number | null) | Media;
-    /**
-     * SEO keywords for this project
-     */
-    keywords?:
-      | {
-          keyword: string;
-          id?: string | null;
-        }[]
-      | null;
-  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -246,6 +345,120 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Small projects displayed in homepage marquee
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quick-projects".
+ */
+export interface QuickProject {
+  id: number;
+  /**
+   * Project title (e.g., "Ancient Tech Redesign")
+   */
+  title: string;
+  /**
+   * Short description (~120 characters)
+   */
+  briefDescription: string;
+  /**
+   * Main tag (e.g., "UI Redesign", "Vibe Code", "E-commerce")
+   */
+  projectType: string;
+  /**
+   * Background image for the card
+   */
+  cardImage: number | Media;
+  /**
+   * Maximum 3 tags
+   */
+  tags: {
+    tag: string;
+    id?: string | null;
+  }[];
+  /**
+   * Link for "Visit" button (Figma, GitHub, live site, etc.)
+   */
+  visitUrl: string;
+  status: 'draft' | 'published';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Services displayed in homepage Services Island
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services".
+ */
+export interface Service {
+  id: number;
+  /**
+   * First line of title (e.g., "UX/UI Design")
+   */
+  title1: string;
+  /**
+   * Second line of title (e.g., "& Engineering")
+   */
+  title2: string;
+  /**
+   * Service description
+   */
+  description: string;
+  /**
+   * Service-related tags (unlimited)
+   */
+  serviceTags: {
+    tag: string;
+    id?: string | null;
+  }[];
+  /**
+   * Technologies & Tools used (unlimited)
+   */
+  techTags: {
+    tech: string;
+    id?: string | null;
+  }[];
+  /**
+   * Optional: Example project description
+   */
+  exampleProject?: string | null;
+  /**
+   * Optional: Maximum 4 images for BounceCards
+   */
+  images?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  status: 'draft' | 'published';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Global FAQs displayed in homepage FAQs Island
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-faqs".
+ */
+export interface HomeFaq {
+  id: number;
+  /**
+   * FAQ question
+   */
+  question: string;
+  /**
+   * FAQ answer
+   */
+  answer: string;
+  /**
+   * Display order (lower numbers appear first)
+   */
+  order: number;
+  status: 'draft' | 'published';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
@@ -259,6 +472,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'quick-projects';
+        value: number | QuickProject;
+      } | null)
+    | ({
+        relationTo: 'services';
+        value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'home-faqs';
+        value: number | HomeFaq;
       } | null)
     | ({
         relationTo: 'media';
@@ -335,33 +560,66 @@ export interface UsersSelect<T extends boolean = true> {
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  description?: T;
-  content?: T;
-  featuredImage?: T;
-  gallery?:
+  status?: T;
+  featured?: T;
+  briefDescription?: T;
+  mainImage?: T;
+  mainTag?: T;
+  uploadDate?: T;
+  authorImage?: T;
+  authorName?: T;
+  articleSections?:
+    | T
+    | {
+        heading?: T;
+        paragraphs?: T;
+        id?: T;
+      };
+  quote?:
+    | T
+    | {
+        text?: T;
+        author?: T;
+      };
+  galleryImages?:
     | T
     | {
         image?: T;
         id?: T;
       };
-  technologies?:
+  techStack?:
     | T
     | {
-        name?: T;
-        icon?: T;
+        heading?: T;
+        description?: T;
         id?: T;
       };
-  demoUrl?: T;
-  githubUrl?: T;
-  status?: T;
-  featured?: T;
-  publishedDate?: T;
-  metrics?:
+  workflowSteps?:
     | T
     | {
-        label?: T;
-        value?: T;
+        title?: T;
         description?: T;
+        id?: T;
+      };
+  achievements?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  finalTitle?: T;
+  finalTags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  templateFAQs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
         id?: T;
       };
   seo?:
@@ -377,9 +635,80 @@ export interface ProjectsSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  metrics?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        description?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quick-projects_select".
+ */
+export interface QuickProjectsSelect<T extends boolean = true> {
+  title?: T;
+  briefDescription?: T;
+  projectType?: T;
+  cardImage?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  visitUrl?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "services_select".
+ */
+export interface ServicesSelect<T extends boolean = true> {
+  title1?: T;
+  title2?: T;
+  description?: T;
+  serviceTags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  techTags?:
+    | T
+    | {
+        tech?: T;
+        id?: T;
+      };
+  exampleProject?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-faqs_select".
+ */
+export interface HomeFaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  order?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

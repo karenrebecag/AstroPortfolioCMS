@@ -8,6 +8,9 @@ import { fileURLToPath } from 'url'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
+import { QuickProjects } from './collections/QuickProjects'
+import { Services } from './collections/Services'
+import { HomeFAQs } from './collections/HomeFAQs'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -34,7 +37,7 @@ export default buildConfig({
   },
 
   // Colecciones (tus tipos de contenido)
-  collections: [Users, Projects, Media],
+  collections: [Users, Projects, QuickProjects, Services, HomeFAQs, Media],
 
   // Editor de texto enriquecido
   editor: lexicalEditor(),
