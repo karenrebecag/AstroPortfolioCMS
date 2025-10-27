@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "ci": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && pnpm run build",
+    "ci": "cross-env NODE_OPTIONS=--no-deprecation printf 'n\\n' | payload migrate && pnpm run build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
