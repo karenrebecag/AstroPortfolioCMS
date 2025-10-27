@@ -1,0 +1,30 @@
+# Build files
+.next
+out
+
+# Dependencies
+node_modules
+
+# Logs
+*.log
+
+# Environment
+.env.local
+.env.development
+.env.test
+
+# Testing
+tests
+playwright-report
+test-results
+
+# Documentation
+*.md
+!README.md
+
+# Git
+.git
+.gitignore
+
+# VSCode
+.vscode

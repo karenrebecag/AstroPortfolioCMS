@@ -1,6 +1,4 @@
 {
   "buildCommand": "pnpm run ci",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "framework": null,
-  "outputDirectory": ".next"
+  "installCommand": "pnpm install --frozen-lockfile"
 }
