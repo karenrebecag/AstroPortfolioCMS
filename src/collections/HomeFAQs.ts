@@ -19,8 +19,9 @@ export const HomeFAQs: CollectionConfig = {
     defaultColumns: ['question', 'order', 'status'],
     group: 'Content',
     description: 'Global FAQs displayed in homepage FAQs Island',
-    defaultSort: 'order',
   },
+
+  defaultSort: 'order',
 
   fields: [
     {
