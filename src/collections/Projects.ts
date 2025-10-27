@@ -1,21 +1,5 @@
 import { CollectionConfig } from 'payload'
-
-// Hook para rebuild de Astro
-const triggerAstroRebuild = async () => {
-  const rebuildWebhook = process.env.ASTRO_REBUILD_WEBHOOK
-
-  if (rebuildWebhook) {
-    try {
-      await fetch(rebuildWebhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      })
-      console.log('✅ Astro rebuild triggered')
-    } catch (error) {
-      console.error('❌ Failed to trigger Astro rebuild:', error)
-    }
-  }
-}
+import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -56,7 +40,7 @@ export const Projects: CollectionConfig = {
     afterChange: [
       async ({ operation }) => {
         if (operation === 'create' || operation === 'update') {
-          await triggerAstroRebuild()
+          await triggerAstroRevalidation()
         }
       },
     ],
