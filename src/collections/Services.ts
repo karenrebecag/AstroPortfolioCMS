@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -19,6 +20,16 @@ export const Services: CollectionConfig = {
     defaultColumns: ['title1', 'title2', 'status'],
     group: 'Content',
     description: 'Services displayed in homepage Services Island',
+  },
+
+  hooks: {
+    afterChange: [
+      async ({ operation }) => {
+        if (operation === 'create' || operation === 'update') {
+          await triggerAstroRevalidation(['/'])
+        }
+      },
+    ],
   },
 
   fields: [

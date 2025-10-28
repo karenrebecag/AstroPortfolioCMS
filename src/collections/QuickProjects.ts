@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload'
+import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const QuickProjects: CollectionConfig = {
   slug: 'quick-projects',
@@ -19,6 +20,16 @@ export const QuickProjects: CollectionConfig = {
     defaultColumns: ['title', 'projectType', 'status'],
     group: 'Content',
     description: 'Small projects displayed in homepage marquee',
+  },
+
+  hooks: {
+    afterChange: [
+      async ({ operation }) => {
+        if (operation === 'create' || operation === 'update') {
+          await triggerAstroRevalidation(['/'])
+        }
+      },
+    ],
   },
 
   fields: [
