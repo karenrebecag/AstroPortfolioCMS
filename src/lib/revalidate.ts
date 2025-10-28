@@ -14,6 +14,9 @@ export const triggerAstroRevalidation = async (routes: string[] = ['/']) => {
     return
   }
 
+  console.log(`🔑 Using bypass token: ${bypassToken.substring(0, 8)}...${bypassToken.substring(bypassToken.length - 4)}`)
+  console.log(`🌐 Site URL: ${siteUrl}`)
+
   try {
     // Revalidate each route by calling it directly with the bypass header
     const results = await Promise.all(
@@ -29,10 +32,18 @@ export const triggerAstroRevalidation = async (routes: string[] = ['/']) => {
             },
           })
 
-          const cacheStatus = response.headers.get('x-vercel-cache')
+          const cacheStatus = response.headers.get('X-Vercel-Cache')
           const success = cacheStatus === 'REVALIDATED' || cacheStatus === 'BYPASS' || cacheStatus === 'MISS'
 
+          // Log all Vercel-related headers for debugging
+          const vercelHeaders = {
+            cache: cacheStatus,
+            id: response.headers.get('X-Vercel-Id'),
+            cacheControl: response.headers.get('Cache-Control'),
+          }
+
           console.log(`📥 Route ${route} - Status: ${response.status}, Cache: ${cacheStatus}, Success: ${success}`)
+          console.log(`   Vercel Headers:`, JSON.stringify(vercelHeaders, null, 2))
 
           return { route, success, cacheStatus, status: response.status }
         } catch (error) {
