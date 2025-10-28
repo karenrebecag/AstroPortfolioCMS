@@ -1,10 +1,10 @@
 import { CollectionConfig } from 'payload'
 
-export const HomeFAQs: CollectionConfig = {
-  slug: 'home-faqs',
+export const TopMarqueeServices: CollectionConfig = {
+  slug: 'top-marquee-services',
   labels: {
-    singular: 'Homepage FAQ',
-    plural: 'Homepage FAQs',
+    singular: 'Top Marquee Service',
+    plural: 'Top Marquee Services',
   },
 
   access: {
@@ -15,38 +15,27 @@ export const HomeFAQs: CollectionConfig = {
   },
 
   admin: {
-    useAsTitle: 'question',
-    defaultColumns: ['question', 'order', 'status'],
+    useAsTitle: 'text',
+    defaultColumns: ['text', 'order', 'status'],
     group: 'Content',
-    description: 'Global FAQs displayed in homepage FAQs Island',
+    description: 'Services/texts displayed in the top marquee banner',
   },
-
-  defaultSort: 'order',
 
   fields: [
     {
-      name: 'question',
+      name: 'text',
       type: 'text',
       required: true,
       localized: true,
       admin: {
-        description: 'FAQ question',
-      },
-    },
-    {
-      name: 'answer',
-      type: 'textarea',
-      required: true,
-      localized: true,
-      admin: {
-        description: 'FAQ answer',
+        description: 'Service text (e.g., "UX/UI Design & Frontend Development")',
       },
     },
     {
       name: 'order',
       type: 'number',
       required: true,
-      defaultValue: 1,
+      defaultValue: 0,
       admin: {
         description: 'Display order (lower numbers appear first)',
         position: 'sidebar',

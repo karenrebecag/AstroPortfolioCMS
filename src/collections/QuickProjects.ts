@@ -26,6 +26,7 @@ export const QuickProjects: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'Project title (e.g., "Ancient Tech Redesign")',
       },
@@ -34,6 +35,7 @@ export const QuickProjects: CollectionConfig = {
       name: 'briefDescription',
       type: 'textarea',
       required: true,
+      localized: true,
       maxLength: 150,
       admin: {
         description: 'Short description (~120 characters)',
@@ -43,6 +45,7 @@ export const QuickProjects: CollectionConfig = {
       name: 'projectType',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'Main tag (e.g., "UI Redesign", "Vibe Code", "E-commerce")',
       },
@@ -70,6 +73,7 @@ export const QuickProjects: CollectionConfig = {
           name: 'tag',
           type: 'text',
           required: true,
+          localized: true,
         },
       ],
     },

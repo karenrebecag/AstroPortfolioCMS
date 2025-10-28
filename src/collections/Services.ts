@@ -26,6 +26,7 @@ export const Services: CollectionConfig = {
       name: 'title1',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'First line of title (e.g., "UX/UI Design")',
       },
@@ -34,6 +35,7 @@ export const Services: CollectionConfig = {
       name: 'title2',
       type: 'text',
       required: true,
+      localized: true,
       admin: {
         description: 'Second line of title (e.g., "& Engineering")',
       },
@@ -42,6 +44,7 @@ export const Services: CollectionConfig = {
       name: 'description',
       type: 'textarea',
       required: true,
+      localized: true,
       admin: {
         description: 'Service description',
       },
@@ -58,6 +61,7 @@ export const Services: CollectionConfig = {
           name: 'tag',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             placeholder: 'e.g., User Interface, Design Systems',
           },
@@ -76,6 +80,7 @@ export const Services: CollectionConfig = {
           name: 'tech',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             placeholder: 'e.g., Figma, React, TypeScript',
           },
@@ -85,6 +90,7 @@ export const Services: CollectionConfig = {
     {
       name: 'exampleProject',
       type: 'textarea',
+      localized: true,
       admin: {
         description: 'Optional: Example project description',
       },

@@ -11,6 +11,8 @@ import { Projects } from './collections/Projects'
 import { QuickProjects } from './collections/QuickProjects'
 import { Services } from './collections/Services'
 import { HomeFAQs } from './collections/HomeFAQs'
+import { Experiences } from './collections/Experiences'
+import { TopMarqueeServices } from './collections/TopMarqueeServices'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,10 +39,55 @@ export default buildConfig({
   },
 
   // Colecciones (tus tipos de contenido)
-  collections: [Users, Projects, QuickProjects, Services, HomeFAQs, Media],
+  collections: [
+    Users,
+    Projects,
+    QuickProjects,
+    Services,
+    HomeFAQs,
+    Experiences,
+    TopMarqueeServices,
+    Media,
+  ],
 
   // Editor de texto enriquecido
   editor: lexicalEditor(),
+
+  // Localization (i18n) - Compatible con tu sistema de traducciones
+  localization: {
+    locales: [
+      {
+        code: 'en',
+        label: 'English',
+      },
+      {
+        code: 'es',
+        label: 'Español',
+      },
+      {
+        code: 'fr',
+        label: 'Français',
+      },
+      {
+        code: 'hi',
+        label: 'हिन्दी (Hindi)',
+      },
+      {
+        code: 'ja',
+        label: '日本語 (Japanese)',
+      },
+      {
+        code: 'zh',
+        label: '中文 (Chinese Simplified)',
+      },
+      {
+        code: 'zh-TW',
+        label: '繁體中文 (Chinese Traditional)',
+      },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
 
   // TypeScript: Genera tipos automáticamente
   typescript: {

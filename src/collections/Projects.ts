@@ -55,6 +55,7 @@ export const Projects: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Project Title',
       admin: {
         description: 'Main title for the project (used in homepage and case study)',
@@ -108,6 +109,7 @@ export const Projects: CollectionConfig = {
           name: 'briefDescription',
           type: 'textarea',
           required: true,
+          localized: true,
           admin: {
             description: 'Short description shown in homepage ProjectsIsland',
           },
@@ -138,6 +140,7 @@ export const Projects: CollectionConfig = {
           name: 'mainTag',
           type: 'text',
           required: true,
+          localized: true,
           defaultValue: 'Web Development',
           admin: {
             description: 'Main category tag (e.g., "Web Development", "UI Design")',
@@ -168,6 +171,7 @@ export const Projects: CollectionConfig = {
           name: 'authorName',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Post by: Author name',
           },
@@ -198,11 +202,13 @@ export const Projects: CollectionConfig = {
               name: 'heading',
               type: 'text',
               required: true,
+              localized: true,
             },
             {
               name: 'paragraphs',
               type: 'richText',
               required: true,
+              localized: true,
             },
           ],
         },
@@ -215,11 +221,13 @@ export const Projects: CollectionConfig = {
               name: 'text',
               type: 'textarea',
               required: true,
+              localized: true,
             },
             {
               name: 'author',
               type: 'text',
               required: true,
+              localized: true,
             },
           ],
         },
@@ -276,6 +284,7 @@ export const Projects: CollectionConfig = {
               name: 'heading',
               type: 'text',
               required: true,
+              localized: true,
               admin: {
                 description: 'Technology name (e.g., "React", "TypeScript")',
               },
@@ -284,6 +293,7 @@ export const Projects: CollectionConfig = {
               name: 'description',
               type: 'textarea',
               required: true,
+              localized: true,
               admin: {
                 description: 'Brief description of how this tech was used',
               },
@@ -316,6 +326,7 @@ export const Projects: CollectionConfig = {
               name: 'title',
               type: 'text',
               required: true,
+              localized: true,
               admin: {
                 description: 'Step title',
               },
@@ -324,6 +335,7 @@ export const Projects: CollectionConfig = {
               name: 'description',
               type: 'textarea',
               required: true,
+              localized: true,
               admin: {
                 description: 'Step description',
               },
@@ -357,6 +369,7 @@ export const Projects: CollectionConfig = {
               name: 'title',
               type: 'text',
               required: true,
+              localized: true,
               admin: {
                 description: 'Achievement title',
               },
@@ -365,6 +378,7 @@ export const Projects: CollectionConfig = {
               name: 'description',
               type: 'textarea',
               required: true,
+              localized: true,
               admin: {
                 description: 'Achievement description',
               },
@@ -389,6 +403,7 @@ export const Projects: CollectionConfig = {
           name: 'finalTitle',
           type: 'text',
           required: true,
+          localized: true,
           admin: {
             description: 'Final section title',
           },
@@ -405,6 +420,7 @@ export const Projects: CollectionConfig = {
               name: 'tag',
               type: 'text',
               required: true,
+              localized: true,
             },
           ],
         },
@@ -434,11 +450,13 @@ export const Projects: CollectionConfig = {
               name: 'question',
               type: 'text',
               required: true,
+              localized: true,
             },
             {
               name: 'answer',
               type: 'textarea',
               required: true,
+              localized: true,
             },
           ],
         },
@@ -462,6 +480,7 @@ export const Projects: CollectionConfig = {
             {
               name: 'metaTitle',
               type: 'text',
+              localized: true,
               admin: {
                 description: 'SEO title (50-60 characters recommended, leave empty to use project title)',
               },
@@ -469,6 +488,7 @@ export const Projects: CollectionConfig = {
             {
               name: 'metaDescription',
               type: 'textarea',
+              localized: true,
               admin: {
                 description: 'SEO description (150-160 characters recommended)',
               },
@@ -489,6 +509,7 @@ export const Projects: CollectionConfig = {
                   name: 'keyword',
                   type: 'text',
                   required: true,
+                  localized: true,
                 },
               ],
             },
@@ -516,6 +537,7 @@ export const Projects: CollectionConfig = {
               name: 'label',
               type: 'text',
               required: true,
+              localized: true,
               admin: {
                 placeholder: 'e.g., Performance Improvement',
               },
@@ -524,6 +546,7 @@ export const Projects: CollectionConfig = {
               name: 'value',
               type: 'text',
               required: true,
+              localized: true,
               admin: {
                 placeholder: 'e.g., 85%',
               },
@@ -531,6 +554,7 @@ export const Projects: CollectionConfig = {
             {
               name: 'description',
               type: 'textarea',
+              localized: true,
               admin: {
                 placeholder: 'Additional context about this metric',
               },
