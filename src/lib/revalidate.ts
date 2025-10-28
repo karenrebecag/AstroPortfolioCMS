@@ -3,40 +3,51 @@
  * This invalidates the cache and regenerates pages without a full rebuild
  */
 export const triggerAstroRevalidation = async (routes: string[] = ['/']) => {
-  const revalidateUrl = process.env.ASTRO_REVALIDATE_URL
-  const revalidateToken = process.env.ASTRO_REVALIDATE_TOKEN
+  const siteUrl = process.env.ASTRO_SITE_URL || process.env.SITE_URL
+  const bypassToken = process.env.ASTRO_ISR_BYPASS_TOKEN
 
-  if (!revalidateUrl || !revalidateToken) {
-    console.log('⚠️ ASTRO_REVALIDATE_URL or ASTRO_REVALIDATE_TOKEN not configured')
+  if (!siteUrl || !bypassToken) {
+    console.log('⚠️ ASTRO_SITE_URL and ASTRO_ISR_BYPASS_TOKEN not configured')
     console.log('   Set these in your CMS environment variables to enable auto-updates')
+    console.log('   ASTRO_SITE_URL: https://www.karenortiz.space')
+    console.log('   ASTRO_ISR_BYPASS_TOKEN: <your-32-char-token>')
     return
   }
 
   try {
-    console.log('📡 Sending revalidation request to:', revalidateUrl)
-    const response = await fetch(revalidateUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-revalidate-token': revalidateToken
-      },
-      body: JSON.stringify({ routes })
-    })
+    // Revalidate each route by calling it directly with the bypass header
+    const results = await Promise.all(
+      routes.map(async (route) => {
+        const url = `${siteUrl}${route}`
+        console.log(`📡 Revalidating route: ${url}`)
 
-    console.log('📥 Response status:', response.status, response.statusText)
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'x-prerender-revalidate': bypassToken,
+            },
+          })
 
-    const responseText = await response.text()
-    console.log('📄 Response body:', responseText)
+          const cacheStatus = response.headers.get('x-vercel-cache')
+          const success = cacheStatus === 'REVALIDATED' || cacheStatus === 'BYPASS' || cacheStatus === 'MISS'
 
-    if (response.ok) {
-      try {
-        const data = responseText ? JSON.parse(responseText) : {}
-        console.log('✅ Astro ISR revalidation triggered successfully:', data)
-      } catch (parseError) {
-        console.warn('⚠️ Response was successful but body is not valid JSON:', responseText)
-      }
+          console.log(`📥 Route ${route} - Status: ${response.status}, Cache: ${cacheStatus}, Success: ${success}`)
+
+          return { route, success, cacheStatus, status: response.status }
+        } catch (error) {
+          console.error(`❌ Failed to revalidate ${route}:`, error)
+          return { route, success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+        }
+      })
+    )
+
+    const allSuccess = results.every(r => r.success)
+
+    if (allSuccess) {
+      console.log('✅ All routes revalidated successfully:', results)
     } else {
-      console.error('❌ Astro revalidation failed:', response.status, responseText)
+      console.warn('⚠️ Some routes failed to revalidate:', results)
     }
   } catch (error) {
     console.error('❌ Failed to trigger Astro revalidation:', error)
