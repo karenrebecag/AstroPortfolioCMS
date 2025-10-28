@@ -25,9 +25,12 @@ export const TopMarqueeServices: CollectionConfig = {
   // Hooks de colección
   hooks: {
     afterChange: [
-      async ({ operation }) => {
+      async ({ operation, doc }) => {
+        console.log('🔥 TopMarqueeServices afterChange hook triggered!', { operation, docId: doc?.id })
         if (operation === 'create' || operation === 'update') {
+          console.log('🚀 Triggering Astro revalidation...')
           await triggerAstroRevalidation(['/'])
+          console.log('✅ Revalidation call completed')
         }
       },
     ],
