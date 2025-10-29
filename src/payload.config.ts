@@ -37,9 +37,6 @@ export default buildConfig({
     meta: {
       titleSuffix: '- Portfolio CMS',
     },
-    components: {
-      beforeDashboard: ['./components/DeployButton'],
-    },
   },
 
   // Colecciones (tus tipos de contenido)
