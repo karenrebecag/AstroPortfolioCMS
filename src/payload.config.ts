@@ -14,6 +14,7 @@ import { HomeFAQs } from './collections/HomeFAQs'
 import { Experiences } from './collections/Experiences'
 import { TopMarqueeServices } from './collections/TopMarqueeServices'
 import { migrations } from './migrations'
+import { deployEndpoint } from './endpoints/deploy'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,6 +37,9 @@ export default buildConfig({
     meta: {
       titleSuffix: '- Portfolio CMS',
     },
+    components: {
+      beforeDashboard: ['@/components/DeployButton#DeployButton'],
+    },
   },
 
   // Colecciones (tus tipos de contenido)
@@ -49,6 +53,9 @@ export default buildConfig({
     TopMarqueeServices,
     Media,
   ],
+
+  // Endpoints personalizados
+  endpoints: [deployEndpoint],
 
   // Editor de texto enriquecido
   editor: lexicalEditor(),

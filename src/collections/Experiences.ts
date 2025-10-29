@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const Experiences: CollectionConfig = {
   slug: 'experiences',
@@ -20,16 +19,6 @@ export const Experiences: CollectionConfig = {
     defaultColumns: ['title', 'company', 'order', 'status'],
     group: 'Content',
     description: 'Professional experiences displayed in homepage marquee',
-  },
-
-  hooks: {
-    afterChange: [
-      async ({ operation }) => {
-        if (operation === 'create' || operation === 'update') {
-          await triggerAstroRevalidation(['/'])
-        }
-      },
-    ],
   },
 
   fields: [

@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
@@ -35,13 +34,6 @@ export const Projects: CollectionConfig = {
             .replace(/(^-|-$)/g, '')
         }
         return data
-      },
-    ],
-    afterChange: [
-      async ({ operation }) => {
-        if (operation === 'create' || operation === 'update') {
-          await triggerAstroRevalidation()
-        }
       },
     ],
   },

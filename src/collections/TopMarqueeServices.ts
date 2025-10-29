@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const TopMarqueeServices: CollectionConfig = {
   slug: 'top-marquee-services',
@@ -20,20 +19,6 @@ export const TopMarqueeServices: CollectionConfig = {
     defaultColumns: ['text', 'order', 'status'],
     group: 'Content',
     description: 'Services/texts displayed in the top marquee banner',
-  },
-
-  // Hooks de colección
-  hooks: {
-    afterChange: [
-      async ({ operation, doc }) => {
-        console.log('🔥 TopMarqueeServices afterChange hook triggered!', { operation, docId: doc?.id })
-        if (operation === 'create' || operation === 'update') {
-          console.log('🚀 Triggering Astro revalidation...')
-          await triggerAstroRevalidation(['/'])
-          console.log('✅ Revalidation call completed')
-        }
-      },
-    ],
   },
 
   fields: [

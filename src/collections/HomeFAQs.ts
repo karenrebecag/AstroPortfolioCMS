@@ -1,5 +1,4 @@
 import { CollectionConfig } from 'payload'
-import { triggerAstroRevalidation } from '../lib/revalidate'
 
 export const HomeFAQs: CollectionConfig = {
   slug: 'home-faqs',
@@ -23,16 +22,6 @@ export const HomeFAQs: CollectionConfig = {
   },
 
   defaultSort: 'order',
-
-  hooks: {
-    afterChange: [
-      async ({ operation }) => {
-        if (operation === 'create' || operation === 'update') {
-          await triggerAstroRevalidation(['/'])
-        }
-      },
-    ],
-  },
 
   fields: [
     {
