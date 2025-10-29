@@ -38,7 +38,7 @@ export default buildConfig({
       titleSuffix: '- Portfolio CMS',
     },
     components: {
-      beforeDashboard: ['@/components/DeployButton#DeployButton'],
+      beforeDashboard: ['./components/DeployButton'],
     },
   },
 

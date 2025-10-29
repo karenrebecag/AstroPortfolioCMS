@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const DeployButton: React.FC = () => {
+const DeployButton: React.FC = () => {
   const [isDeploying, setIsDeploying] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
   const [isError, setIsError] = useState(false)
@@ -139,3 +139,5 @@ export const DeployButton: React.FC = () => {
     </div>
   )
 }
+
+export default DeployButton
