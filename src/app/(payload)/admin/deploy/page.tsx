@@ -182,8 +182,8 @@ export default function DeployPage() {
             }}
           >
             <li>Make all your content changes in the CMS collections</li>
-            <li>Save each change individually (they won't trigger a deploy automatically)</li>
-            <li>When you're ready to publish everything, come to this page and click Deploy</li>
+            <li>Save each change individually (they won&apos;t trigger a deploy automatically)</li>
+            <li>When you&apos;re ready to publish everything, come to this page and click Deploy</li>
             <li>One single build will include ALL your changes</li>
             <li>This saves Vercel build quota and is more efficient</li>
           </ul>

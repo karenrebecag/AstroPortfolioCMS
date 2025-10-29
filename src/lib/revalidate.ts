@@ -2,7 +2,7 @@
  * Trigger Astro site rebuild using Vercel Deploy Hook
  * This triggers a full rebuild of the site when content changes
  */
-export const triggerAstroRevalidation = async (routes: string[] = ['/']) => {
+export const triggerAstroRevalidation = async (_routes: string[] = ['/']) => {
   const deployHookUrl = process.env.ASTRO_DEPLOY_HOOK_URL
 
   if (!deployHookUrl) {
